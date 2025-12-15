@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Forever</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #f8d7e8, #d8b4f8);
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+    }
+
+    /* Floating petals */
+    .petal {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 182, 193, 0.6);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(45deg);
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        from { transform: translateY(-10vh) rotate(45deg); }
+        to { transform: translateY(110vh) rotate(405deg); }
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(12px);
+        padding: 50px 40px;
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        text-align: center;
+        max-width: 420px;
+        width: 90%;
+        animation: fadeIn 2s ease;
+        z-index: 2;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        font-family: 'Great Vibes', cursive;
+        font-size: 3em;
+        color: #5a2d82;
+        margin-bottom: 15px;
+    }
+
+    .subtitle {
+        font-size: 1em;
+        color: #4a4a4a;
+        margin-bottom: 30px;
+    }
+
+    .divider {
+        width: 60px;
+        height: 2px;
+        background: #c084fc;
+        margin: 20px auto 30px;
+        border-radius: 2px;
+    }
+
+    .buttons {
+        margin-top: 30px;
+    }
+
+    button {
+        border: none;
+        padding: 14px 34px;
+        margin: 10px;
+        font-size: 1em;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .yes {
+        background: linear-gradient(135deg, #ec4899, #d946ef);
+        color: white;
+        box-shadow: 0 8px 20px rgba(236,72,153,0.4);
+    }
+
+    .no {
+        background: rgba(255,255,255,0.7);
+        color: #5a2d82;
+        border: 1px solid #e9d5ff;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+    }
+
+    footer {
+        margin-top: 25px;
+        font-size: 0.8em;
+        color: #5a2d82;
+        opacity: 0.8;
+    }
+
+    /* Music overlay */
+    .music-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(248, 215, 232, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 5;
+        cursor: pointer;
+    }
+
+    .music-overlay div {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        font-family: 'Great Vibes', cursive;
+        font-size: 2em;
+        color: #5a2d82;
+    }
+</style>
+
+<script>
+/* ===== MUSIC PLAYLIST =====
+   Add your local MP3 files here
+   Example: 'song1.mp3', 'song2.mp3'
+*/
+const playlist = [
+    'song1.mp3',
+    'song2.mp3',
+    'song3.mp3'
+];
+
+let currentTrack = 0;
+const audio = new Audio();
+audio.loop = false;
+
+audio.src = playlist[currentTrack];
+
+audio.addEventListener('ended', () => {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    audio.src = playlist[currentTrack];
+    audio.play();
+});
+
+function startMusic() {
+    audio.play();
+    document.getElementById('musicOverlay').style.display = 'none';
+}
+
+function showResponse(answer) {
+    if (answer === 'Yes') {
+        alert("She said YES! 💍💖\n\nA beautiful forever begins now.");
+    } else {
+        alert("She chose not yet 💗\n\nLove is patient, love is kind.");
+    }
+}
+</script>
+</head>
+<body>
+
+<!-- Tap-to-play overlay -->
+<div class="music-overlay" id="musicOverlay" onclick="startMusic()">
+    <div>🎶 A song is waiting for you…<br>Tap to begin</div>
+</div>
+
+<!-- Petals -->
+<script>
+for(let i = 0; i < 20; i++){
+    let petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.animationDuration = (6 + Math.random() * 6) + 's';
+    petal.style.opacity = Math.random();
+    document.body.appendChild(petal);
+}
+</script>
+
+<div class="container">
+    <h1>Afua Agyeiwaa</h1>
+    <div class="subtitle">Shall we make our love official and begin our marriage journey?</div>
+    <div class="divider"></div>
+
+    <div class="buttons">
+        <button class="yes" onclick="showResponse('Yes')">Yes, let’s begin 💍</button>
+        <button class="no" onclick="showResponse('No')">Not yet 💗</button>
+    </div>
+
+    <footer>
+        With all my love 🤍
+    </footer>
+</div>
+
+</body>
+</html>
